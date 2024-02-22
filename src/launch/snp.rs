@@ -196,20 +196,8 @@ pub struct Update<'a> {
     /// The userspace of address of the encrypted region.
     pub(crate) uaddr: &'a [u8],
 
-    /// Indicates that this page is part of the IMI of the guest.
-    pub(crate) imi_page: bool,
-
     /// Encoded page type.
     pub(crate) page_type: PageType,
-
-    /// VMPL3 permission mask.
-    pub(crate) vmpl3_perms: VmplPerms,
-
-    /// VMPL2 permission mask.
-    pub(crate) vmpl2_perms: VmplPerms,
-
-    /// VMPL1 permission mask.
-    pub(crate) vmpl1_perms: VmplPerms,
 }
 
 impl<'a> Update<'a> {
@@ -217,18 +205,12 @@ impl<'a> Update<'a> {
     pub fn new(
         start_gfn: u64,
         uaddr: &'a [u8],
-        imi_page: bool,
         page_type: PageType,
-        perms: (VmplPerms, VmplPerms, VmplPerms),
     ) -> Self {
         Self {
             start_gfn,
             uaddr,
-            imi_page,
             page_type,
-            vmpl3_perms: perms.2,
-            vmpl2_perms: perms.1,
-            vmpl1_perms: perms.0,
         }
     }
 }

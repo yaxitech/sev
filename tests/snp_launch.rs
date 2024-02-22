@@ -71,15 +71,10 @@ fn snp() {
 
     let mut launcher = launcher.start(start).unwrap();
 
-    // If VMPL is not enabled, perms must be zero
-    let dp = VmplPerms::empty();
-
     let update = Update::new(
         mem_region.guest_phys_addr >> 12,
         address_space,
-        false,
         PageType::Normal,
-        (dp, dp, dp),
     );
 
     launcher.update_data(update).unwrap();

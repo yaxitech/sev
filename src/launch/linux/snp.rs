@@ -71,21 +71,8 @@ pub struct LaunchUpdate<'a> {
     /// (end encryption uaddr = uaddr + len).
     len: u32,
 
-    /// Indicates that this page is part of the IMI of the guest.
-    imi_page: u8,
-
     /// Encoded page type. See Table 58 if the SNP Firmware specification.
     page_type: u8,
-
-    /// VMPL permission mask for VMPL3. See Table 59 of the SNP Firmware
-    /// specification for the definition of the mask.
-    vmpl3_perms: u8,
-
-    /// VMPL permission mask for VMPL2.
-    vmpl2_perms: u8,
-
-    /// VMPL permission mask for VMPL1.
-    vmpl1_perms: u8,
 
     _phantom: PhantomData<&'a ()>,
 }
@@ -96,11 +83,7 @@ impl From<Update<'_>> for LaunchUpdate<'_> {
             start_gfn: update.start_gfn,
             uaddr: update.uaddr.as_ptr() as _,
             len: update.uaddr.len() as _,
-            imi_page: u8::from(update.imi_page),
             page_type: update.page_type as _,
-            vmpl3_perms: update.vmpl3_perms.bits(),
-            vmpl2_perms: update.vmpl2_perms.bits(),
-            vmpl1_perms: update.vmpl1_perms.bits(),
             _phantom: PhantomData,
         }
     }
