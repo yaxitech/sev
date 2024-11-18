@@ -497,7 +497,7 @@ impl From<u32> for FirmwareError {
     fn from(error: u32) -> FirmwareError {
         match error {
             0x00 => FirmwareError::IoError(io::Error::last_os_error()),
-            0x01..0x027 => FirmwareError::KnownSevError(error.into()),
+            0x01..=0x026 => FirmwareError::KnownSevError(error.into()),
             _ => FirmwareError::UnknownSevError(error),
         }
     }
