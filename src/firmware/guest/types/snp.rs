@@ -354,6 +354,7 @@ impl Default for AttestationReport {
     }
 }
 
+#[cfg(not(feature = "forward-compat"))]
 impl Encoder<()> for AttestationReport {
     fn encode(&self, writer: &mut impl Write, _: ()) -> Result<(), std::io::Error> {
         // Determine the variant based on version and CPUID step
@@ -1724,6 +1725,7 @@ Signature:
         AttestationReport::from_bytes(bytes[..100].try_into().unwrap()).unwrap();
     }
 
+    #[cfg(not(feature = "forward-compat"))]
     #[test]
     fn test_attestation_report_parse_and_write_bytes() {
         let report = AttestationReport {
@@ -1801,6 +1803,7 @@ Signature:
         assert_eq!(original.to_bytes().unwrap(), cloned.to_bytes().unwrap());
     }
 
+    #[cfg(not(feature = "forward-compat"))]
     #[test]
     fn test_attestation_report_complex_write() {
         let report = AttestationReport {
@@ -1830,6 +1833,7 @@ Signature:
         assert_eq!(read_back.image_id, [0xBB; 16]);
     }
 
+    #[cfg(not(feature = "forward-compat"))]
     #[test]
     fn test_write_with_limited_writer() {
         let report = AttestationReport {
